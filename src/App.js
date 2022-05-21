@@ -17,20 +17,28 @@ function App() {
     } else if (value === "0" && result === "0") {
       console.log("result is zero", result);
       setCalc("0");
+      setResult("0");
       return;
     } else {
       const calcValue = calc + e.target.value;
-      setCalc(calcValue.toString());
-      const res = eval(calc + value);
-      setResult(String(res));
+      try {
+        setCalc(calcValue.toString());
+        const res = eval(calc + value);
+        setResult(String(res));
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   const displayResult = () => {
     if (calc === "") {
       return;
     }
-    console.log(eval(calc));
-    setCalc(eval(calc).toString());
+    try {
+      setCalc(eval(calc).toString());
+    } catch (err) {
+      setCalc("0");
+    }
   };
   const resetHandler = () => {
     setCalc("");
